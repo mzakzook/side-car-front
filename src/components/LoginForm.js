@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ActivityIndicator, AsyncStorage } from 'react-native';
+import { View, Text, ActivityIndicator, AsyncStorage, Alert } from 'react-native';
 import { Jiro } from 'react-native-textinput-effects';
 import _ from 'lodash';
 import Button from 'react-native-button';
@@ -19,6 +19,7 @@ class LoginForm extends Component {
   onButtonSubmit() {
     // console.log('Submitted: ', `${this.props.email} ${this.props.password}`);
     const { email, password } = this.props;
+    
     this.props.loginUser({email, password});
   }
  
@@ -80,8 +81,8 @@ class LoginForm extends Component {
         <Jiro label={"Password"} inputPadding={16}
           inputStyle={{ color: 'white' }} borderColor={"black"} onChangeText={this.passwordChanged.bind(this)} secureTextEntry /> 
         {this.renderButton()}
-        <Text style={styles.bottomText}>Forgot Password?</Text>
-        <Text style={styles.bottomText}>New? Create an Account</Text>
+        <Text style={styles.bottomText} onPress={() => this.props.navigation.navigate('ForgotPassword')}>Forgot Password?</Text>
+        <Text style={styles.bottomText} onPress={() => this.props.navigation.navigate('NewUser')}>New? Create an Account</Text>
       </View>
     );
   }

@@ -9,22 +9,61 @@ import { Provider } from 'react-redux'
 import React from 'react';
 import Reducers from './src/reducers';
 import thunkMiddleware from 'redux-thunk'
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import NewUserForm from './src/components/NewUserForm'
+import ForgotPassword from './src/screens/ForgotPassword';
 
-
-// Implementation of HomeScreen, OtherScreen, SignInScreen, AuthLoadingScreen
-// goes here & ForgotPassword.
-
-// , Teacher: TeacherHomeScreen
-
-const AppStack = createStackNavigator({ Home: HomeScreen });
+// const AppStack = createStackNavigator({ Home: HomeScreen });
 const AuthStack = createStackNavigator({ SignIn: SignInScreen });
+
+
+
+const MainTabs = createBottomTabNavigator({
+  Feed: {
+    screen: HomeScreen,
+    navigationOptions: {
+      tabBarLabel: "Feed"
+    }
+  },
+  Search: {
+    screen: NewUserForm,
+    navigationOptions: {
+      tabBarLabel: "Search"
+    }
+  },
+  Discover: {
+    screen: HomeScreen,
+    navigationOptions: {
+      tabBarLabel: "Discover"
+    }
+  }
+});
+
+
+
+
+
+const AppStack = createStackNavigator(
+  {
+    App: MainTabs,
+    Promotion1: {
+      screen: HomeScreen
+    }
+  },
+  {
+    mode: "modal",
+    headerMode: "none"
+  }
+);
 
 let Navigation = createAppContainer(
   createSwitchNavigator(
     {
       AuthLoading: AuthLoadingScreen,
       App: AppStack,
-      Auth: AuthStack
+      Auth: AuthStack,
+      NewUser: NewUserForm,
+      ForgotPassword: ForgotPassword
     },
     {
       initialRouteName: 'AuthLoading',
@@ -32,27 +71,6 @@ let Navigation = createAppContainer(
   )
 );
 
-
-
-// renderNavBar() {
-  // if (this.props.spinner) {
-  //   return (
-  //     <ActivityIndicator style={{ height: 80 }} size="large" />
-  //   );
-  // }
-  // return (
-  //   <Button style={{
-  //     fontSize: 20,
-  //     color: '#ffffff',
-  //     backgroundColor: '#2ECC71',
-  //     padding: 20,
-  //     marginTop: 10
-  //   }}
-  //     styleDisabled={{ color: 'red' }}
-  //     onPress={this.onButtonSubmit.bind(this)}
-  //   >Create New Account</Button>
-  // );
-  // }
 
 class App extends React.Component {
 
@@ -69,7 +87,6 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <Navigation />
-        
       </Provider>
     )
   }
@@ -78,3 +95,5 @@ class App extends React.Component {
 
 
 export default App;
+
+

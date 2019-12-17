@@ -18,6 +18,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, ...action.payload };
     case 'LOAD_SPINNER':
       return { ...state, spinner: true };
+    case 'LOGOUT_USER_SUCCESS':
+      return INITIAL_STATE;
     default:
       return state;
   }

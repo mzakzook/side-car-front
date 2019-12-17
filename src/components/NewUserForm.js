@@ -82,6 +82,7 @@ class NewUserForm extends Component {
   render() {
     return (
       <View style={styles.viewStyle}>
+        
         <Text {...this.renderError()} />
         <Hoshi label={'First Name'} inputPadding={16}
           inputStyle={{ color: 'black' }} onChangeText={this.firstNameChanged.bind(this)} />
@@ -96,6 +97,7 @@ class NewUserForm extends Component {
         <Hoshi label={"Password"} inputPadding={16}
           inputStyle={{ color: 'black' }} onChangeText={this.passwordChanged.bind(this)} />
         {this.renderButton()}
+        <Button onPress={() => this.props.navigation.navigate('Auth')}>Return to Login</Button>
       </View>
     );
   }

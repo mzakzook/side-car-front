@@ -49,3 +49,9 @@ export const loginUser = ({email, password}) => {
     });
   }
 };
+
+export const logoutUser = () => {
+  return {
+    type: 'LOGOUT_USER_SUCCESS'
+  };
+};

@@ -1,11 +1,19 @@
 import React from 'react';
 import { View, Button, Text, AsyncStorage } from 'react-native'
+import { connect } from 'react-redux';
+import { logoutUser } from '../actions/'
 import NewUserForm from '../components/NewUserForm'
+
+
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'SideCar',
   };
+
+  componentDidMount = () => {
+    console.log(this.props)
+  }
 
   render() {
     return (
@@ -18,7 +26,7 @@ class HomeScreen extends React.Component {
           fontWeight: 'bold'
         }}
         >Hello</Text>
-      <Button title="Actually, sign me out :)" onPress={this._signOutAsync} />
+        <Button title="Actually, sign me out :)" onPress={this._signOutAsync} />
       </View>
     );
   }
@@ -28,9 +36,15 @@ class HomeScreen extends React.Component {
   };
 
   _signOutAsync = async () => {
+    this.props.logoutUser()
     await AsyncStorage.clear();
     this.props.navigation.navigate('Auth');
   };
-}
 
-export default HomeScreen;
+
+
+
+
+}
+export default connect(null, { logoutUser })(HomeScreen);
+
