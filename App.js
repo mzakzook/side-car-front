@@ -3,7 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from './src/screens/HomeScreen';
 import SignInScreen from './src/screens/SignInScreen';
 import AuthLoadingScreen from './src/screens/AuthLoadingScreen';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { createLogger } from 'redux-logger'
 import { Provider } from 'react-redux'
 import React from 'react';
@@ -49,10 +49,6 @@ const AppStack = createStackNavigator(
     Promotion1: {
       screen: HomeScreen
     }
-  },
-  {
-    mode: "modal",
-    headerMode: "none"
   }
 );
 
@@ -73,17 +69,18 @@ let Navigation = createAppContainer(
 
 
 class App extends React.Component {
-
   render() {
+    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     const loggerMiddleware = createLogger();
     const store = createStore(
-      Reducers, 
-      applyMiddleware(
-        thunkMiddleware,
-        loggerMiddleware
+      Reducers,
+      composeEnhancers( 
+        applyMiddleware(        
+          thunkMiddleware,
+          loggerMiddleware
+        ) 
       )
     );
-
     return (
       <Provider store={store}>
         <Navigation />
@@ -91,7 +88,6 @@ class App extends React.Component {
     )
   }
 }
-
 
 
 export default App;

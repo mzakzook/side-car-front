@@ -56,7 +56,7 @@ export const passwordChanged = (password) => {
 
 
 
-export const createNewUser = ({ firstName, lastName, email, password }) => {
+export const createNewUser = ({ firstName, lastName, email, password, cellNumber, avatar, navigation }) => {
   return (dispatch) => {
     dispatch({
       type: LOAD_SPINNER
@@ -79,9 +79,11 @@ export const createNewUser = ({ firstName, lastName, email, password }) => {
       })
     }).then((response) => {
       // console.log(response);
-      if (response.status === 200) {
+      if (response.status === 201) {
         response.json().then(data => {
           console.log(data);
+          alert("Please confirm your email before logging in!")
+          navigation.navigate("Auth")
           dispatch({
             type: USER_CREATED_SUCCESS,
             payload: data
@@ -89,8 +91,10 @@ export const createNewUser = ({ firstName, lastName, email, password }) => {
         });   
       } else {
         // console.log('SUCCESS!!');
+        alert("Account creation failed. Please try again.")
         dispatch({
           type: USER_CREATED_FAILED
+          
         })
       }
     });

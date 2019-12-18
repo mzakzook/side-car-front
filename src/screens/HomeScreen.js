@@ -25,8 +25,8 @@ class HomeScreen extends React.Component {
           // color: '#A569BD',
           fontWeight: 'bold'
         }}
-        >Hello</Text>
-        <Button title="Actually, sign me out :)" onPress={this._signOutAsync} />
+        >Hello {this.props.first_name}</Text>
+        <Button title="Sign out" onPress={this._signOutAsync} />
       </View>
     );
   }
@@ -43,8 +43,12 @@ class HomeScreen extends React.Component {
 
 
 
-
-
 }
-export default connect(null, { logoutUser })(HomeScreen);
+const mapStateToProps = (state) => {
+  return {
+    first_name: state.auth.first_name
+  };
+};
+
+export default connect(mapStateToProps, { logoutUser })(HomeScreen);
 

@@ -16,8 +16,8 @@ class NewUserForm extends Component {
 
   onButtonSubmit() {
     // console.log('Submitted: ', `${this.props.email} ${this.props.password}`);
-    const { firstName, lastName, email, avatar, password, cellNumber } = this.props;
-    this.props.createNewUser({ firstName, lastName, email, avatar, password, cellNumber });
+    const { firstName, lastName, email, avatar, password, cellNumber, navigation } = this.props;
+    this.props.createNewUser({ firstName, lastName, email, avatar, password, cellNumber, navigation });
   }
 
   emailChanged(value) {

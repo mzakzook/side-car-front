@@ -18,7 +18,27 @@ class ForgotPassword extends Component {
   }
 
   onButtonSubmit = () => {
-    console.log(this.state)
+    fetch('http://localhost:3000/users/password', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user: {
+          email: this.state.email
+        }
+      })
+    }).then((response) => {
+      // console.log(response);
+      
+        response.json().then(data => {
+          console.log(data);
+          alert("Please check your email for reset instructions.")
+          this.props.navigation.navigate("Auth")
+        });   
+      
+    });
   }
 
   
