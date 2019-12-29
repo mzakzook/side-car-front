@@ -58,6 +58,7 @@ export const passwordChanged = (password) => {
 
 export const createNewUser = ({ firstName, lastName, email, password, cellNumber, avatar, navigation }) => {
   return (dispatch) => {
+    console.log(cellNumber)
     dispatch({
       type: LOAD_SPINNER
     });

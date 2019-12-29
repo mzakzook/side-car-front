@@ -15,7 +15,9 @@ export default (state = INITIAL_STATE, action) => {
     case 'LOGIN_FAILED':
       return { ...state, errorFlag: true, password: '', spinner: false };
     case 'LOGIN_USER_SUCCESS':
-      return { ...state, ...action.payload };
+      return { ...state, ...action.payload, spinner: false };
+    case 'FIND_USER_SUCCESS':
+      return { ...state, ...action.payload, spinner: false };
     case 'LOAD_SPINNER':
       return { ...state, spinner: true };
     case 'LOGOUT_USER_SUCCESS':

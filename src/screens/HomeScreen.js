@@ -1,19 +1,31 @@
 import React from 'react';
-import { View, Button, Text, AsyncStorage } from 'react-native'
+import { View, Text, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux';
-import { logoutUser } from '../actions/'
-import NewUserForm from '../components/NewUserForm'
+import Button from 'react-native-button';
+import { findUser } from '../actions/findUser';
+
 
 
 
 class HomeScreen extends React.Component {
-  static navigationOptions = {
-    title: 'SideCar',
+  // static navigationOptions = {
+  //   title: 'SideCar',
+  // };
+
+  componentDidMount() {
+    this._bootstrapAsync()
+  }
+
+  // // Fetch the token from storage then navigate to our appropriate place
+  _bootstrapAsync = async () => {
+    const userToken = await AsyncStorage.getItem('userToken');
+    if (!this.props.id) {
+      console.log(userToken)
+      this.props.findUser(userToken)
+    }
   };
 
-  componentDidMount = () => {
-    console.log(this.props)
-  }
+
 
   render() {
     return (
@@ -26,29 +38,19 @@ class HomeScreen extends React.Component {
           fontWeight: 'bold'
         }}
         >Hello {this.props.first_name}</Text>
-        <Button title="Sign out" onPress={this._signOutAsync} />
       </View>
     );
   }
-
-  _showMoreApp = () => {
-    this.props.navigation.navigate('Other');
-  };
-
-  _signOutAsync = async () => {
-    this.props.logoutUser()
-    await AsyncStorage.clear();
-    this.props.navigation.navigate('Auth');
-  };
 
 
 
 }
 const mapStateToProps = (state) => {
   return {
-    first_name: state.auth.first_name
+    first_name: state.auth.first_name,
+    id: state.auth.id
   };
 };
 
-export default connect(mapStateToProps, { logoutUser })(HomeScreen);
+export default connect(mapStateToProps, { findUser })(HomeScreen);
 

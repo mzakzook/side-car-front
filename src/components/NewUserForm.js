@@ -71,9 +71,11 @@ class NewUserForm extends Component {
         // color: '#ffffff',
         // backgroundColor: '#2ECC71',
         padding: 20,
-        marginTop: 10
+        marginTop: 10,
+        color: 'black'
       }}
         styleDisabled={{ color: 'red' }}
+        
         onPress={this.onButtonSubmit.bind(this)}
       >Create New Account</Button>
     );
@@ -85,19 +87,19 @@ class NewUserForm extends Component {
         
         <Text {...this.renderError()} />
         <Hoshi label={'First Name'} inputPadding={16}
-          inputStyle={{ color: 'black' }} onChangeText={this.firstNameChanged.bind(this)} />
+          inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.firstNameChanged.bind(this)} />
         <Hoshi label={"Last Name"} inputPadding={16}
-          inputStyle={{ color: 'black' }} onChangeText={this.lastNameChanged.bind(this)} />
+          inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.lastNameChanged.bind(this)} />
         <Hoshi label={"Cell Phone"} inputPadding={16}
-          inputStyle={{ color: 'black' }} onChangeText={this.cellNumberChanged.bind(this)} />
+          inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.cellNumberChanged.bind(this)} />
         <Hoshi label={"Avatar URL"} inputPadding={16}
-          inputStyle={{ color: 'black' }} onChangeText={this.avatarChanged.bind(this)} />
-        <Hoshi label={"Email"} inputPadding={16}
-          inputStyle={{ color: 'black' }} onChangeText={this.emailChanged.bind(this)} />
-        <Hoshi label={"Password"} inputPadding={16}
-          inputStyle={{ color: 'black' }} onChangeText={this.passwordChanged.bind(this)} />
+          inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.avatarChanged.bind(this)} />
+        <Hoshi autoCapitalize = 'none' label={"Email"} inputPadding={16}
+          inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.emailChanged.bind(this)} />
+        <Hoshi secureTextEntry autoCapitalize = 'none' label={"Password"} inputPadding={16}
+          inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.passwordChanged.bind(this)} />
         {this.renderButton()}
-        <Button onPress={() => this.props.navigation.navigate('Auth')}>Return to Login</Button>
+        <Button style={{color: "black"}} onPress={() => this.props.navigation.navigate('Auth')}>Return to Login</Button>
       </View>
     );
   }
@@ -120,7 +122,7 @@ const mapStateToProps = (state) => {
     firstName: state.newUser.firstName,
     lastName: state.newUser.lastName,
     avatar: state.newUser.avatar,
-    cell_number: state.newUser.cell_number,
+    cellNumber: state.newUser.cellNumber,
     email: state.newUser.email,
     password: state.newUser.password,
     error: state.newUser.errorFlag,

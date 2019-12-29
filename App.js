@@ -12,31 +12,71 @@ import thunkMiddleware from 'redux-thunk'
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import NewUserForm from './src/components/NewUserForm'
 import ForgotPassword from './src/screens/ForgotPassword';
+import Profile from './src/components/Profile';
+import Discover from './src/components/Discover';
+import ProviderShow from './src/components/ProviderShow'
+import MyMapView from './src/components/MyMapView'
+import AddBiz from './src/components/AddBiz'
+import MyProviders from './src/components/MyProviders'
+import EditBiz from './src/components/EditBiz'
 
 // const AppStack = createStackNavigator({ Home: HomeScreen });
 const AuthStack = createStackNavigator({ SignIn: SignInScreen });
 
-
-
-const MainTabs = createBottomTabNavigator({
-  Feed: {
-    screen: HomeScreen,
-    navigationOptions: {
-      tabBarLabel: "Feed"
+const DiscStack = createStackNavigator(
+  {
+    Discover: {
+      screen: Discover
+    },
+    ProviderShow: {
+      screen: ProviderShow
     }
   },
-  Search: {
-    screen: NewUserForm,
+  {
+    headerMode: 'none'
+  }
+)
+
+const ProfStack = createStackNavigator(
+  {
+    Profile: {
+      screen: Profile
+    },
+    MyProviders: {
+      screen: MyProviders
+    },
+    AddBiz: {
+      screen: AddBiz
+    },
+    EditBiz: {
+      screen: EditBiz
+    }
+  },
+
+  {
+    headerMode: 'none'
+  }
+)
+
+const MainTabs = createBottomTabNavigator({
+  Home: {
+    screen: HomeScreen,
     navigationOptions: {
-      tabBarLabel: "Search"
+      tabBarLabel: "Home"
     }
   },
   Discover: {
-    screen: HomeScreen,
+    screen: DiscStack,
     navigationOptions: {
       tabBarLabel: "Discover"
     }
-  }
+  },
+  Profile: {
+    screen: ProfStack,
+    navigationOptions: {
+      tabBarLabel: "Profile"
+    }
+  }  
 });
 
 
@@ -45,12 +85,13 @@ const MainTabs = createBottomTabNavigator({
 
 const AppStack = createStackNavigator(
   {
-    App: MainTabs,
-    Promotion1: {
-      screen: HomeScreen
-    }
+    App: MainTabs
   }
 );
+
+
+
+
 
 let Navigation = createAppContainer(
   createSwitchNavigator(
@@ -69,6 +110,7 @@ let Navigation = createAppContainer(
 
 
 class App extends React.Component {
+
   render() {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     const loggerMiddleware = createLogger();

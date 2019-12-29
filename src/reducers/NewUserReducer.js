@@ -16,7 +16,7 @@ const INITIAL_STATE = {
   email: '',
   password: '',
   avatar: '',
-  cell_number: '',
+  cellNumber: '',
   auth_token: '',
   errorFlag: false,
   spinner: false
@@ -31,15 +31,15 @@ export default (state = INITIAL_STATE, action) => {
     case AVATAR_CHANGED:
       return { ...state, avatar: action.payload };
     case CELL_NUMBER_CHANGED:
-      return { ...state, cell_number: action.payload };
+      return { ...state, cellNumber: action.payload };
     case EMAIL_CHANGED:
-      return { ...state, email: action.payload }
+      return { ...state, email: action.payload };
     case PASSWORD_CHANGED:
-      return { ...state, password: action.payload }
+      return { ...state, password: action.payload };
     case USER_CREATED_FAILED:
       return { ...state, errorFlag: true, password: '', spinner: false };
     case USER_CREATED_SUCCESS:
-      return { ...state, ...action.payload };
+      return { ...state, ...action.payload, spinner: false };
     case LOAD_SPINNER:
       return { ...state, spinner: true };
     default:

@@ -33,13 +33,14 @@ export const loginUser = ({email, password}) => {
       // console.log(response);
       if (response.status === 401) {
         // console.log('AUTHENTICATION ERROR!!');
+        alert("Account not found.")
         dispatch({
           type: 'LOGIN_FAILED'
         })
       } else {
         // console.log('SUCCESS!!');
         response.json().then(data => {
-          console.log(data);
+          console.log('id found');
           dispatch({
             type: 'LOGIN_USER_SUCCESS',
             payload: data
