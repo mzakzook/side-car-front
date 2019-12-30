@@ -124,7 +124,7 @@ class AddBiz extends React.Component {
           inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.websiteChanged.bind(this)} />
         <Hoshi autoCapitalize='none' label={"Yelp"} inputPadding={16}
           inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.yelpChanged.bind(this)} />
-        <Hoshi autoCapitalize='none' label={"Business Phone"} inputPadding={16}
+        <Hoshi autoCapitalize='none' label={"Business Phone"} inputPadding={16} 
           inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.bizPhoneChanged.bind(this)} />
         
         <RNPickerSelect

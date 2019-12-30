@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, AsyncStorage } from 'react-native'
+import { View, Text, AsyncStorage, DatePickerIOS } from 'react-native'
 import { connect } from 'react-redux';
 import { withNavigation, StackActions, NavigationActions } from 'react-navigation'
 import { Hoshi } from 'react-native-textinput-effects';
@@ -7,18 +7,18 @@ import RNPickerSelect from 'react-native-picker-select';
 import Button from 'react-native-button'
 import { bizChanged, getMyProviders, getProviders } from '../actions/provider';
 
-
-class EditBiz extends React.Component {
+class EditEvent extends React.Component {
   // static navigationOptions = {
   //   title: 'SideCar',
   // };
 
+  
   state = {
-    biz_name: '',
+    edate: this.props.navigation.state.params.edate,
 
-    website: '',
-    yelp: '',
-    biz_phone: ''
+    title: '',
+    description: ''
+   
   }
   componentDidMount = () => {
     console.log(this.props)
@@ -33,47 +33,43 @@ class EditBiz extends React.Component {
   //   t.string "category"
   //   t.bigint "user_id", null:
 
-  bizNameChanged = (value) => {
+  edateChanged = (value) => {
     this.setState({
-      biz_name: value
+      edate: value
     })
   }
 
 
-  websiteChanged = (value) => {
+  titleChanged = (value) => {
     this.setState({
-      website: value
+      title: value
     })
   }
 
-  yelpChanged = (value) => {
+  descriptonChanged = (value) => {
     this.setState({
-      yelp: value
+      description: value
     })
   }
 
-  bizPhoneChanged = (value) => {
-    this.setState({
-      biz_phone: value
-    })
-  }
+ 
 
-  deleteBiz = () => {
-    fetch(`http://localhost:3000/providers/${this.props.id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Accepts: 'application/json'
-      }
-    })
-      .then(res => {
-        console.log("here is the res" + res)
-        this.props.getProviders()
-        this.props.getMyProviders(this.props.user_id)
-        alert('Business Deleted')
-        this.props.navigation.dispatch(resetAction)
-      })
-  }
+  // deleteEvent = () => {
+  //   fetch(`http://localhost:3000/providers/${this.props.id}`, {
+  //     method: 'DELETE',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Accepts: 'application/json'
+  //     }
+  //   })
+  //     .then(res => {
+  //       console.log("here is the res" + res)
+  //       this.props.getProviders()
+  //       this.props.getMyProviders(this.props.user_id)
+  //       alert('Business Deleted')
+  //       this.props.navigation.dispatch(resetAction)
+  //     })
+  // }
 
   
 
@@ -100,22 +96,20 @@ class EditBiz extends React.Component {
     //     this.props.fetchPlants()
     //   })
     let saveData = {}
-    if (this.state.biz_name.length > 0) {
-      saveData["biz_name"] = this.state.biz_name
+    if (this.state.title.length > 0) {
+      saveData["title"] = this.state.title
     }
-    if (this.state.biz_phone.length > 0) {
-      saveData["biz_phone"] = this.state.biz_phone
+    if (this.state.description.length > 0) {
+      saveData["description"] = this.state.description
     }
-    if (this.state.website.length > 0) {
-      saveData["website"] = this.state.website
+    if (this.state.edate.length > 0) {
+      saveData["edate"] = this.state.edate
     }
-    if (this.state.yelp.length > 0) {
-      saveData["yelp"] = this.state.yelp
-    }
+    
     
 
     if (Object.entries(saveData).length !== 0 && saveData.constructor === Object) {
-      fetch(`http://localhost:3000/providers/${this.props.id}`, {
+      fetch(`http://localhost:3000/events/${this.props.id}`, {
         method: 'PATCH',
         headers: {
           Accept: 'application/json',
@@ -147,19 +141,19 @@ class EditBiz extends React.Component {
     return (
       <View style={styles.viewStyle}>
 
-        <Hoshi inputPadding={16} placeholder={this.props.biz_name}
-          inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.bizNameChanged.bind(this)} />
-        <Hoshi autoCapitalize='none' inputPadding={16} placeholder={this.props.website}
-          inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.websiteChanged.bind(this)} />
-        <Hoshi autoCapitalize='none' inputPadding={16} placeholder={this.props.yelp}
-          inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.yelpChanged.bind(this)} />
-        <Hoshi inputPadding={16} placeholder={this.props.biz_phone}
-          inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.bizPhoneChanged.bind(this)} />
+        <Hoshi inputPadding={16} placeholder={this.props.navigation.state.params.title}
+          inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={e => this.titleChanged(e)} />
+        <Hoshi inputPadding={16} placeholder={this.props.navigation.state.params.description}
+          inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={e => this.descriptionChanged(e)} />
+        <DatePickerIOS
+          date={new Date(this.state.edate)}
+          onDateChange={this.edateChanged.bind(this)}
+        />
         <Button style={{ color: "black", marginTop: 38 }} onPress={() => this.props.navigation.dispatch(popAction)}>Cancel</Button>
 
         <Button style={{ color: "black" }} onPress={() => this.submitForm()}>Save</Button>
-        <Button style={{ color: "red" }} onPress={() => this.deleteBiz()}>Delete Business</Button>
-        <Button style={{ color: "black" }} onPress={() => this.props.navigation.navigate('Profile')}>Back to Profile</Button>
+        <Button style={{ color: "red" }} onPress={() => this.deleteEvent()}>Delete Event</Button>
+        <Button style={{ color: "black" }} onPress={() => this.props.navigation.navigate('Profile')}>Back to Profile</Button> 
       </View>
 
     );
@@ -208,5 +202,5 @@ const popAction = StackActions.pop({
 
 
 
-export default withNavigation(connect(mapStateToProps, { bizChanged, getMyProviders, getProviders })(EditBiz));
+export default withNavigation(connect(mapStateToProps)(EditEvent));
 

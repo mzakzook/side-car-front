@@ -19,6 +19,8 @@ import MyMapView from './src/components/MyMapView'
 import AddBiz from './src/components/AddBiz'
 import MyProviders from './src/components/MyProviders'
 import EditBiz from './src/components/EditBiz'
+import ImagePickerExample from './src/components/ImagePickerExample'
+import EditEvent from './src/components/EditEvent'
 
 // const AppStack = createStackNavigator({ Home: HomeScreen });
 const AuthStack = createStackNavigator({ SignIn: SignInScreen });
@@ -100,7 +102,9 @@ let Navigation = createAppContainer(
       App: AppStack,
       Auth: AuthStack,
       NewUser: NewUserForm,
-      ForgotPassword: ForgotPassword
+      ForgotPassword: ForgotPassword,
+      Camera: ImagePickerExample,
+      EditEvent: EditEvent
     },
     {
       initialRouteName: 'AuthLoading',

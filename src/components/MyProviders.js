@@ -55,16 +55,20 @@ class MyProviders extends React.Component {
         }}
         >My Businesses</Text>
         {this.props.my_providers.length > 0 ? 
-          <ScrollView><FlatList 
+          <ScrollView>
+            {/* <FlatList 
             style={{marginBottom: 180}}
             data={this.props.my_providers}
         // renderItem={({item}) => <Text onPress={() => this.handleProvClick(item.attributes)}>{item.attributes.biz_name}</Text>}
 
         renderItem={({item}) => <ProviderCard provider={item.attributes} />}
         
-         /> 
+         />  */}
+         {this.props.my_providers.map(provider => {
+           return <ProviderCard key={provider.attributes.id} provider={provider.attributes} />
+         })}
          {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')}> */}
-           <Button onPress={() => this.props.navigation.navigate('Profile')}>Back</Button>
+           <Button style={{paddingTop: 35}} onPress={() => this.props.navigation.navigate('Profile')}>Back</Button>
            {/* </TouchableOpacity> */}
            </ScrollView>
         // this.state.providers.data.map(provider => {

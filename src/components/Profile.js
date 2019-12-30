@@ -62,6 +62,7 @@ class Profile extends React.Component {
         <Button title="Add Business" onPress={() => this.props.navigation.navigate("AddBiz")} />
         <Button title="My Businesses" onPress={() => this.props.navigation.navigate("MyProviders")} />
         <Button title="Sign out" onPress={this._signOutAsync} />
+        <Button title="Camera" onPress={() => this.props.navigation.navigate("Camera")} />
       </View>
     );
   }
