@@ -6,6 +6,8 @@ import { Hoshi } from 'react-native-textinput-effects';
 import RNPickerSelect from 'react-native-picker-select';
 import Button from 'react-native-button'
 import { bizChanged, getMyProviders, getProviders } from '../actions/provider';
+import { PATH } from '../environment'
+
 
 
 class EditBiz extends React.Component {
@@ -59,7 +61,7 @@ class EditBiz extends React.Component {
   }
 
   deleteBiz = () => {
-    fetch(`http://localhost:3000/providers/${this.props.id}`, {
+    fetch(`http://${PATH}:3000/providers/${this.props.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -82,7 +84,7 @@ class EditBiz extends React.Component {
 
 
   submitForm = () => {
-    // fetch(`http://localhost:3001/api/v1/plants/${this.state.plant.attributes.id}`, {
+    // fetch(`http://{PATH}:3001/api/v1/plants/${this.state.plant.attributes.id}`, {
     //   method: 'PATCH',
     //   headers: {
     //     'Content-Type': 'application/json',
@@ -115,7 +117,7 @@ class EditBiz extends React.Component {
     
 
     if (Object.entries(saveData).length !== 0 && saveData.constructor === Object) {
-      fetch(`http://localhost:3000/providers/${this.props.id}`, {
+      fetch(`http://${PATH}:3000/providers/${this.props.id}`, {
         method: 'PATCH',
         headers: {
           Accept: 'application/json',

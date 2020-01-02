@@ -54,6 +54,9 @@
 //   };
 // };
 
+import { PATH } from '../environment'
+
+
 export const bizChanged = (biz) => {
   return (dispatch) => {
     dispatch({
@@ -65,7 +68,7 @@ export const bizChanged = (biz) => {
 
 export const getProviders = () => {
   return (dispatch) => {
-  fetch('http://localhost:3000/providers')
+  fetch(`http://${PATH}:3000/providers`)
      .then(res => res.json())
      .then(data => {
       dispatch({
@@ -78,7 +81,7 @@ export const getProviders = () => {
 
 export const getMyProviders = (userId) => {
   return (dispatch) => {
-  fetch(`http://localhost:3000/providers?user_id=${userId}`)
+  fetch(`http://${PATH}:3000/providers?user_id=${userId}`)
      .then(res => res.json())
      .then(data => {
        dispatch({

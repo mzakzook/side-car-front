@@ -18,7 +18,7 @@ import { ActionSheetIOS } from "react-native";
 const INITIAL_STATE = {
   biz_name: '',
   tax_id: '',
-  photo_id: '',
+  placeholder_image: '',
   website: '',
   yelp: '',
   biz_phone: '',
@@ -26,7 +26,8 @@ const INITIAL_STATE = {
   user_id: '',
   id: '',
   providers: [],
-  my_providers: []
+  my_providers: [],
+  images: []
 };
 
 

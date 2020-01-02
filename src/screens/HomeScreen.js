@@ -3,6 +3,7 @@ import { View, Text, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
 import { findUser } from '../actions/findUser';
+import { Constants, Svg } from 'expo';
 
 
 
@@ -37,7 +38,25 @@ class HomeScreen extends React.Component {
           // color: '#A569BD',
           fontWeight: 'bold'
         }}
-        >Hello {this.props.first_name}</Text>
+        >Restaurant Quality Food & Drinks at Your Next Event</Text>
+
+<Text style={{
+          textAlign: 'center',
+          padding: 50,
+          fontSize: 30,
+          // color: '#A569BD',
+          fontWeight: 'bold'
+        }}
+        >Featured Food Truck</Text>
+
+<Text style={{
+          textAlign: 'center',
+          padding: 50,
+          fontSize: 30,
+          // color: '#A569BD',
+          fontWeight: 'bold'
+        }}
+        >Featured Bartender</Text>
       </View>
     );
   }
@@ -52,5 +71,40 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { findUser })(HomeScreen);
+// render() {
+//   const { Circle, Text, TextPath, TSpan, G, Path } = Svg
+//    return (
+// <View style={{ flex: 1, justifyContent: 'center',
+//     paddingTop: Constants.statusBarHeight, padding: 0 }}>
+//     <Svg height="100%" width="100%" viewBox="0 0 300 300" {...props}>
+//       <G id="circle">
+//         <Circle
+//           r={100}
+//           x={150}
+//           y={150}
+//           fill="none"
+//           stroke="none"
+//           strokeWidth={0}
+//           transform="rotate(-135)"
+//         />
+//       </G>
+//       <Image
+//         style={{ width: 220, height: 220, borderRadius: 110,
+//           marginLeft: 68, marginTop: 175 }}
+//         source={'https://images.absolutdrinks.com/drink-images/Raw/Absolut/939c2560-08d9-4df7-a28c-f80d9780e08d.jpg?imwidth=500'}
+//       />
+//       <Text fill="#000" fontSize="14">
+//         <Text fill="#000" fontSize="14">
+//           <TextPath href="#circle">
+//             <TSpan dy={0}>
+//               Text along a curved path...
+//             </TSpan>
+//           </TextPath>
+//         </Text>
+//       </Text>
+//     </Svg>
+//   </View>)}
+// }
 
+export default connect(mapStateToProps, { findUser })(HomeScreen);
+// export default HomeScreen

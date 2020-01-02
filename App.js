@@ -21,6 +21,7 @@ import MyProviders from './src/components/MyProviders'
 import EditBiz from './src/components/EditBiz'
 import ImagePickerExample from './src/components/ImagePickerExample'
 import EditEvent from './src/components/EditEvent'
+import EditProfile from './src/components/EditProfile'
 
 // const AppStack = createStackNavigator({ Home: HomeScreen });
 const AuthStack = createStackNavigator({ SignIn: SignInScreen });
@@ -33,7 +34,8 @@ const DiscStack = createStackNavigator(
     ProviderShow: {
       screen: ProviderShow
     }
-  },
+  }
+  ,
   {
     headerMode: 'none'
   }
@@ -53,7 +55,8 @@ const ProfStack = createStackNavigator(
     EditBiz: {
       screen: EditBiz
     }
-  },
+  }
+  ,
 
   {
     headerMode: 'none'
@@ -104,7 +107,8 @@ let Navigation = createAppContainer(
       NewUser: NewUserForm,
       ForgotPassword: ForgotPassword,
       Camera: ImagePickerExample,
-      EditEvent: EditEvent
+      EditEvent: EditEvent,
+      EditProfile: EditProfile
     },
     {
       initialRouteName: 'AuthLoading',

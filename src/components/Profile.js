@@ -3,6 +3,8 @@ import { View, Button, Text, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux';
 import { logoutUser } from '../actions/'
 import { withNavigation } from 'react-navigation'
+import { PATH } from '../environment'
+
 
 
 
@@ -15,7 +17,7 @@ class Profile extends React.Component {
   }
 
   componentDidMount = () => {
-    fetch(`http://localhost:3000/providers?user_id=${toString(this.props.id)}`)
+    fetch(`http://${PATH}:3000/providers?user_id=${toString(this.props.id)}`)
      .then(res => res.json())
      .then(data => {
        this.setState({
@@ -61,8 +63,9 @@ class Profile extends React.Component {
         >{this.props.cell_number}</Text>
         <Button title="Add Business" onPress={() => this.props.navigation.navigate("AddBiz")} />
         <Button title="My Businesses" onPress={() => this.props.navigation.navigate("MyProviders")} />
+        {/* <Button title="Edit Profile" onPress={() => this.props.navigation.navigate("EditProfile")} /> */}
         <Button title="Sign out" onPress={this._signOutAsync} />
-        <Button title="Camera" onPress={() => this.props.navigation.navigate("Camera")} />
+        {/* <Button title="Camera" onPress={() => this.props.navigation.navigate("Camera")} /> */}
       </View>
     );
   }

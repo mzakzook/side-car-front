@@ -1,3 +1,6 @@
+import { PATH } from '../environment'
+
+
 export const emailChanged = (email) => {
   return {
     type: 'EMAIL_CHANGED',
@@ -17,7 +20,7 @@ export const loginUser = ({email, password}) => {
     dispatch({
       type: 'LOAD_SPINNER'
     });
-    fetch('http://localhost:3000/users/sign_in.json', {
+    fetch(`http://${PATH}:3000/users/sign_in.json`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

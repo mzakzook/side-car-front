@@ -10,6 +10,9 @@ import {
   LOAD_SPINNER
 } from '../actions/userConstants';
 
+import { PATH } from '../environment'
+
+
 
 
 export const firstNameChanged = (firstName) => {
@@ -62,7 +65,7 @@ export const createNewUser = ({ firstName, lastName, email, password, cellNumber
     dispatch({
       type: LOAD_SPINNER
     });
-    fetch('http://localhost:3000/users', {
+    fetch(`http://${PATH}:3000/users`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

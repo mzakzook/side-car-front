@@ -4,7 +4,7 @@ import { View, Button, Text, AsyncStorage, FlatList, Image, TouchableHighlight, 
 import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux';
 import { bizChanged } from '../actions/provider';
-
+import { PATH } from '../environment'
 
 
 
@@ -25,7 +25,7 @@ class ProviderCard extends React.Component {
 
 
     return (
-      <View>
+      <View >
         <CardView
           cardElevation={2}
           cardMaxElevation={2}
@@ -38,10 +38,10 @@ class ProviderCard extends React.Component {
                */}
           </Text></TouchableOpacity>
 
-          <TouchableHighlight onPress={() => this.handlePress(this.props.provider)}><Image
+          <TouchableHighlight style={{justifyContent: 'center', alignItems: 'center'}}onPress={() => this.handlePress(this.props.provider)}><Image
 
-            style={{ height: 50, justifyContent: 'center', alignItems: 'center' }}
-            source={{ uri: 'https://rfsdelivers.com/media/zoo/images/07-02-barbacoa-beef-street-tacos_63120b9e05f99470e104562c019a9455.jpg' }}
+            style={{ height: 200, justifyContent: 'center', alignItems: 'center', borderRadius: 25, width: 325 }}
+            source={{ uri: (this.props.provider.images.length > 0 ? `http://${PATH}:3000${this.props.provider.images[0]}` : this.props.provider.placeholder_image) }}
           /></TouchableHighlight>
 
           {/* <Text onPress={() => this.handlePress(this.props.provider)}
@@ -70,9 +70,13 @@ const styles = {
   },
 
   cardViewStyle: {
-
-
-    height: 150
+    justifyContent: 'center',
+    height: 300, 
+    width: 375,
+    borderWidth: 1,
+    borderColor: 'lightgrey',
+    marginBottom: 25,
+    borderRadius: 25
 
   },
 
@@ -81,7 +85,7 @@ const styles = {
     fontSize: 20,
     color: '#000',
     textAlign: 'center',
-    marginTop: 50
+    marginTop: 5
 
   }
 

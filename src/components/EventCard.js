@@ -29,7 +29,7 @@ class EventCard extends React.Component {
 
 
     return (
-      <View>
+      <View >
         <CardView
           cardElevation={2}
           cardMaxElevation={2}
@@ -76,7 +76,7 @@ const styles = {
 
   cardViewStyle: {
 
-
+    
     height: 150
 
   },
@@ -111,7 +111,7 @@ const mapStateToProps = (state) => {
     
     biz_name: state.provider.biz_name,
     tax_id: state.provider.tax_id,
-    photo_id: state.provider.photo_id,
+    placeholder_image: state.provider.placeholder_image,
     website: state.provider.website,
     yelp: state.provider.yelp,
     biz_phone: state.provider.biz_phone,

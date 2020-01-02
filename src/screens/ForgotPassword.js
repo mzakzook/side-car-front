@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, ActivityIndicator, AsyncStorage, Alert } from 'react-native';
 import { Jiro } from 'react-native-textinput-effects';
 import Button from 'react-native-button';
+import { PATH } from '../environment'
+
 
 
 
@@ -18,7 +20,7 @@ class ForgotPassword extends Component {
   }
 
   onButtonSubmit = () => {
-    fetch('http://localhost:3000/users/password', {
+    fetch(`http://${PATH}:3000/users/password`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

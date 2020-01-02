@@ -1,9 +1,12 @@
 import React from 'react';
-import { View, Button, Text, TextInput, AsyncStorage, FlatList, ScrollView } from 'react-native'
+import { View, Button, Text, TouchableOpacity, TextInput, AsyncStorage, FlatList, ScrollView, StyleSheet } from 'react-native'
 import { connect }  from 'react-redux';
 // import { bizNameChanged, taxIdChanged, photoIdChanged, websiteChanged, yelpChanged, bizPhoneChanged, categoryChanged, userIdChanged } from '../actions/provider';
 import { bizChanged, getProviders } from '../actions/provider';
 import ProviderCard from './ProviderCard'
+
+import { PATH } from '../environment'
+
 import { withNavigation } from 'react-navigation'
 
 
@@ -16,7 +19,8 @@ class Discover extends React.Component {
   // };
 
   state = {
-    providers: []
+    providers: this.props.providers.filter(provider => provider.attributes.category === "Food Truck"),
+    category: "Food Trucks"
   }
 
   handleSearch = (text) => {
@@ -48,7 +52,7 @@ class Discover extends React.Component {
   }
 
   componentDidMount = () => {
-    // fetch('http://localhost:3000/providers')
+    // fetch('http://${PATH}:3000/providers')
     //  .then(res => res.json())
     //  .then(data => {
     //    this.setState({
@@ -74,18 +78,23 @@ class Discover extends React.Component {
     
     
     return (
-      <View>
+      <View >
         <Text style={{
           textAlign: 'center',
           paddingHorizontal: 50,
-          paddingVertical: 20,
+          paddingTop: 15,
+          paddingBottom: 5,
           fontSize: 30,
           // color: '#A569BD',
           fontWeight: 'bold'
         }}
-        >Discover Bartenders and Food Trucks</Text>
+        >Discover Food Trucks & Bartenders</Text>
+        <View style={styles.container}>
+      <TouchableOpacity onPress={() => {this.setState({category: 'Food Trucks', providers: this.props.providers.filter(provider => provider.attributes.category === "Food Truck")})}}><View pointerEvents='none'><Button color={this.state.category === "Food Trucks" ? 'lightgreen' : "white"} style={styles.button} title="Food Trucks"  /></View></TouchableOpacity>
+      <TouchableOpacity onPress={() => {this.setState({category: 'Bartenders', providers: this.props.providers.filter(provider => provider.attributes.category === "Bartending")})}}><View pointerEvents='none'><Button color={this.state.category === 'Bartenders' ? 'lightgreen' : "white"} style={styles.button} title="Bartenders" /></View></TouchableOpacity>
+    </View>
         <TextInput 
-        style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginHorizontal: 30, textAlign:'center', borderRadius: 20 }}
+        style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginHorizontal: 30, textAlign:'center', borderRadius: 20, backgroundColor: "transparent" }}
         onChangeText={text => this.handleSearch(text)}
       // value={value}
       placeholder="Search"
@@ -93,26 +102,27 @@ class Discover extends React.Component {
       />
         {this.props.providers.length > 0 ? 
           
-        //   <FlatList 
-        //     style={{marginBottom: 180}}
-        //     data={this.props.providers}
-        // // renderItem={({item}) => <Text onPress={() => this.handleProvClick(item.attributes)}>{item.attributes.biz_name}</Text>}
+          <FlatList 
+            style={{marginBottom: 180, marginTop: 10}}
+            contentContainerStyle={{justifyContent: 'center', alignItems: 'center'}}
+            data={this.state.providers.length > 0 ? this.state.providers : this.props.providers}
+        // renderItem={({item}) => <Text onPress={() => this.handleProvClick(item.attributes)}>{item.attributes.biz_name}</Text>}
 
-        // renderItem={({item}) => <ProviderCard provider={item.attributes} />}
-        //  /> 
-        <ScrollView>
-        {this.state.providers.length > 0 ? 
-        this.state.providers.map(provider => {
-          return <ProviderCard key={provider.attributes.id} provider={provider.attributes} />
-        }) :
-        this.props.providers.map(provider => {
-          return <ProviderCard key={provider.attributes.id} provider={provider.attributes} />
-        })
-      }
-         {/* {this.providerList().map(provider => {
-           return <ProviderCard key={provider.attributes.id} provider={provider.attributes} />
-         })} */}
-         </ScrollView>
+        renderItem={({item}) => <ProviderCard provider={item.attributes} />}
+         /> 
+      //   <ScrollView>
+      //   {this.state.providers.length > 0 ? 
+      //   this.state.providers.map(provider => {
+      //     return <ProviderCard key={provider.attributes.id} provider={provider.attributes} />
+      //   }) :
+      //   this.props.providers.map(provider => {
+      //     return <ProviderCard key={provider.attributes.id} provider={provider.attributes} />
+      //   })
+      // }
+      //    {/* {this.providerList().map(provider => {
+      //      return <ProviderCard key={provider.attributes.id} provider={provider.attributes} />
+      //    })} */}
+      //    </ScrollView>
         // this.state.providers.data.map(provider => {
         //   return <ProviderCard provider={provider.attributes} />
         // })
@@ -145,6 +155,19 @@ const mapDispatchToProps = {
   bizChanged,
   getProviders
 }
+
+const styles = StyleSheet.create({
+  container: {
+    // flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 10,
+    backgroundColor: 'black'
+  },
+  button: {
+    width: '40%'
+  }
+});
 
 
 

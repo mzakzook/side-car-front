@@ -1,11 +1,14 @@
 import React from 'react';
 import { View, Text, AsyncStorage, DatePickerIOS } from 'react-native'
+import DatePicker from 'react-native-datepicker';
 import { connect } from 'react-redux';
 import { withNavigation, StackActions, NavigationActions } from 'react-navigation'
 import { Hoshi } from 'react-native-textinput-effects';
 import RNPickerSelect from 'react-native-picker-select';
 import Button from 'react-native-button'
 import { bizChanged, getMyProviders, getProviders } from '../actions/provider';
+import { PATH } from '../environment'
+
 
 class EditEvent extends React.Component {
   // static navigationOptions = {
@@ -46,7 +49,7 @@ class EditEvent extends React.Component {
     })
   }
 
-  descriptonChanged = (value) => {
+  descriptionChanged = (value) => {
     this.setState({
       description: value
     })
@@ -54,22 +57,21 @@ class EditEvent extends React.Component {
 
  
 
-  // deleteEvent = () => {
-  //   fetch(`http://localhost:3000/providers/${this.props.id}`, {
-  //     method: 'DELETE',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Accepts: 'application/json'
-  //     }
-  //   })
-  //     .then(res => {
-  //       console.log("here is the res" + res)
-  //       this.props.getProviders()
-  //       this.props.getMyProviders(this.props.user_id)
-  //       alert('Business Deleted')
-  //       this.props.navigation.dispatch(resetAction)
-  //     })
-  // }
+  deleteEvent = () => {
+    fetch(`http://${PATH}:3000/events/${this.props.navigation.state.params.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Accepts: 'application/json'
+      }
+    })
+      .then(res => {
+        console.log("here is the res" + res)
+       
+        alert('Event Deleted')
+        this.props.navigation.navigate("ProviderShow")
+      })
+  }
 
   
 
@@ -78,23 +80,7 @@ class EditEvent extends React.Component {
 
 
   submitForm = () => {
-    // fetch(`http://localhost:3001/api/v1/plants/${this.state.plant.attributes.id}`, {
-    //   method: 'PATCH',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Accepts: 'application/json'
-    //   },
-    //   body: JSON.stringify(
-    //     saveBody
-    //   )
-    // })
-    //   .then(res => res.json())
-    //   .then(plants => {
-    //     this.setState({
-    //       show: false
-    //     })
-    //     this.props.fetchPlants()
-    //   })
+    
     let saveData = {}
     if (this.state.title.length > 0) {
       saveData["title"] = this.state.title
@@ -109,26 +95,25 @@ class EditEvent extends React.Component {
     
 
     if (Object.entries(saveData).length !== 0 && saveData.constructor === Object) {
-      fetch(`http://localhost:3000/events/${this.props.id}`, {
+      fetch(`http://${PATH}:3000/events/${this.props.navigation.state.params.id}`, {
         method: 'PATCH',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          provider: 
+          event: 
             saveData
           
         })
       })
         .then(res => res.json())
         .then(data => {
-
-          const stuff = data.data.attributes
           
-          this.props.bizChanged(stuff)
-          this.props.getProviders()
-          this.props.getMyProviders(this.props.user_id)
+          
+          
+          
+          
           this.props.navigation.dispatch(popAction)
           this.props.navigation.navigate('ProviderShow')
         })
@@ -145,15 +130,39 @@ class EditEvent extends React.Component {
           inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={e => this.titleChanged(e)} />
         <Hoshi inputPadding={16} placeholder={this.props.navigation.state.params.description}
           inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={e => this.descriptionChanged(e)} />
-        <DatePickerIOS
+        {/* <DatePickerIOS
           date={new Date(this.state.edate)}
           onDateChange={this.edateChanged.bind(this)}
+        /> */}
+
+<DatePicker
+          style={{width: 200}}
+          date={new Date(this.state.edate)} //initial date from state
+          mode="date" //The enum of date, datetime and time
+          placeholder="select date"
+          format="MM-DD-YYYY"
+          minDate={new Date()}
+          maxDate="01-01-2025"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
+          customStyles={{
+            dateIcon: {
+              position: 'absolute',
+              left: 0,
+              top: 4,
+              marginLeft: 0
+            },
+            dateInput: {
+              marginLeft: 36
+            }
+          }}
+          onDateChange={this.edateChanged.bind(this)}
         />
-        <Button style={{ color: "black", marginTop: 38 }} onPress={() => this.props.navigation.dispatch(popAction)}>Cancel</Button>
+        <Button style={{ color: "black", marginTop: 38 }} onPress={() => this.props.navigation.navigate("ProviderShow")}>Cancel</Button>
 
         <Button style={{ color: "black" }} onPress={() => this.submitForm()}>Save</Button>
         <Button style={{ color: "red" }} onPress={() => this.deleteEvent()}>Delete Event</Button>
-        <Button style={{ color: "black" }} onPress={() => this.props.navigation.navigate('Profile')}>Back to Profile</Button> 
+  
       </View>
 
     );

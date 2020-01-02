@@ -1,7 +1,10 @@
+import { PATH } from '../environment'
+
+
 export const findUser = (token) => {
   
   return (dispatch) => {
-    fetch(`http://localhost:3000/find_user?token=${token}`)
+    fetch(`http://${PATH}:3000/find_user?token=${token}`)
       .then(res => res.json())
       .then(data => {
         
@@ -14,3 +17,16 @@ export const findUser = (token) => {
 };
 
 
+
+
+export const updateUser = (data) => {
+  
+  return (dispatch) => {
+
+        
+        dispatch({
+          type: 'FIND_USER_SUCCESS',
+          payload: data
+        });
+      }
+};

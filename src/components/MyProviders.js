@@ -12,10 +12,9 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 class MyProviders extends React.Component {
-  // static navigationOptions = {
-  //   title: 'SideCar',
-  // };
-
+  static navigationOptions = {
+    headerLeft: <Button>Hi</Button>
+  }
 
 
   
@@ -55,7 +54,7 @@ class MyProviders extends React.Component {
         }}
         >My Businesses</Text>
         {this.props.my_providers.length > 0 ? 
-          <ScrollView>
+          <ScrollView contentContainerStyle={{justifyContent: 'center', alignItems: 'center'}}>
             {/* <FlatList 
             style={{marginBottom: 180}}
             data={this.props.my_providers}
