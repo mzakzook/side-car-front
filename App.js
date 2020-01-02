@@ -22,6 +22,7 @@ import EditBiz from './src/components/EditBiz'
 import ImagePickerExample from './src/components/ImagePickerExample'
 import EditEvent from './src/components/EditEvent'
 import EditProfile from './src/components/EditProfile'
+import AddEvent from './src/components/AddEvent'
 
 // const AppStack = createStackNavigator({ Home: HomeScreen });
 const AuthStack = createStackNavigator({ SignIn: SignInScreen });
@@ -108,7 +109,8 @@ let Navigation = createAppContainer(
       ForgotPassword: ForgotPassword,
       Camera: ImagePickerExample,
       EditEvent: EditEvent,
-      EditProfile: EditProfile
+      EditProfile: EditProfile,
+      AddEvent: AddEvent
     },
     {
       initialRouteName: 'AuthLoading',
@@ -120,6 +122,7 @@ let Navigation = createAppContainer(
 class App extends React.Component {
 
   render() {
+  
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     const loggerMiddleware = createLogger();
     const store = createStore(

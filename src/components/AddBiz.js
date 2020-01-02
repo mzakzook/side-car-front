@@ -212,21 +212,15 @@ class AddBiz extends React.Component {
           inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.bizNameChanged.bind(this)} />
         <Hoshi label={"Tax ID"} inputPadding={16}
           inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.taxIdChanged.bind(this)} />
-        <Hoshi label={"Upload Photo ID"} inputPadding={16}
-          inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.photoIdChanged.bind(this)} />
+        {/* <Hoshi label={"Upload Photo ID"} inputPadding={16}
+          inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.photoIdChanged.bind(this)} /> */}
         <Hoshi autoCapitalize='none' label={"Website"} inputPadding={16}
           inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.websiteChanged.bind(this)} />
         <Hoshi autoCapitalize='none' label={"Yelp"} inputPadding={16}
           inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.yelpChanged.bind(this)} />
         <Hoshi label={"Business Phone"} inputPadding={16} 
           inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={this.bizPhoneChanged.bind(this)} />
-         <Button
-        
-        onPress={this._pickImage}
-      >Pick an image from camera roll</Button>
-      {image &&
-        <Image source={{ uri: image.uri }} style={{ width: 200, height: 200 }} />}
-        <RNPickerSelect
+         <RNPickerSelect
           // placeholder={ "Category" }
           style={pickerStyle}
           onValueChange={(value) => this.categoryChanged(value)}
@@ -235,6 +229,13 @@ class AddBiz extends React.Component {
             { label: 'Bartending', value: 'Bartending' }
           ]}
         />
+         <Button
+        style={{paddingTop: 20}}
+        onPress={this._pickImage}
+      >Pick an image from camera roll</Button>
+      {image &&
+        <Image source={{ uri: image.uri }} style={{ width: 200, height: 200 }} />}
+        
         <Button style={{ color: "black", marginTop: 38 }} onPress={() => this.submitForm()}>Submit</Button>
         <Button style={{ color: "black" }} onPress={() => this.props.navigation.navigate('Profile')}>Back to Profile</Button>
         </ScrollView>

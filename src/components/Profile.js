@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../actions/'
 import { withNavigation } from 'react-navigation'
 import { PATH } from '../environment'
+import { Avatar } from 'react-native-elements';
 
 
 
@@ -27,8 +28,12 @@ class Profile extends React.Component {
   }
 
   render() {
+    
+      let initials = this.props.first_name ? this.props.first_name.charAt(0) + this.props.last_name.charAt(0) : "??";
+    
     return (
       <View>
+        
         <Text style={{
           textAlign: 'center',
           padding: 50,
@@ -37,30 +42,21 @@ class Profile extends React.Component {
           fontWeight: 'bold'
         }}
         >{this.props.first_name} {this.props.last_name}</Text>
-         <Text style={{
-          textAlign: 'center',
-          padding: 50,
-          fontSize: 20,
-          // color: '#A569BD',
-          fontWeight: 'bold'
-        }}
-        >{this.props.avatar}</Text>
+        <View style={{justifyContent: 'center', alignItems: 'center'}}><Avatar size="large" rounded title={initials} /></View>
         <Text style={{
           textAlign: 'center',
-          padding: 50,
-          fontSize: 20,
+          paddingTop: 50,
+          fontSize: 20
           // color: '#A569BD',
-          fontWeight: 'bold'
+          
         }}
-        >{this.props.email}</Text>
+        >Email: {this.props.email}</Text>
          <Text style={{
           textAlign: 'center',
-          padding: 50,
-          fontSize: 20,
-          // color: '#A569BD',
-          fontWeight: 'bold'
+          paddingBottom: 50,
+          fontSize: 20
         }}
-        >{this.props.cell_number}</Text>
+        >Phone Number: {this.props.cell_number}</Text>
         <Button title="Add Business" onPress={() => this.props.navigation.navigate("AddBiz")} />
         <Button title="My Businesses" onPress={() => this.props.navigation.navigate("MyProviders")} />
         {/* <Button title="Edit Profile" onPress={() => this.props.navigation.navigate("EditProfile")} /> */}

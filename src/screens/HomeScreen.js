@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text, AsyncStorage } from 'react-native'
+import { View, Text, AsyncStorage, ScrollView } from 'react-native'
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
 import { findUser } from '../actions/findUser';
 import { Constants, Svg } from 'expo';
-
-
+import { getProviders } from '../actions/provider';
+import ProviderCard from '../components/ProviderCard'
 
 
 class HomeScreen extends React.Component {
@@ -13,8 +13,15 @@ class HomeScreen extends React.Component {
   //   title: 'SideCar',
   // };
 
+
+  state = {
+    ranFood: { biz_name: '' },
+    ranBar: { biz_name: '' }
+  }
   componentDidMount() {
     this._bootstrapAsync()
+    this.getRanFood()
+    this.getRanBar()
   }
 
   // // Fetch the token from storage then navigate to our appropriate place
@@ -26,14 +33,33 @@ class HomeScreen extends React.Component {
     }
   };
 
+  getRanFood = () => {
+    fetch('http://localhost:3000/random_provider?type=foodtruck')
+    .then(res => res.json())
+    .then(data => {
+      this.setState({ ranFood: data.data.attributes })
+    })
+  }
+
+  getRanBar = () => {
+    fetch('http://localhost:3000/random_provider?type=bartending')
+    .then(res => res.json())
+    .then(data => {
+      this.setState({ ranBar: data.data.attributes })
+    })
+  }
+
 
 
   render() {
+   
+    
     return (
-      <View>
+      <ScrollView>
+        
         <Text style={{
           textAlign: 'center',
-          padding: 50,
+          paddingTop: 50,
           fontSize: 30,
           // color: '#A569BD',
           fontWeight: 'bold'
@@ -48,7 +74,7 @@ class HomeScreen extends React.Component {
           fontWeight: 'bold'
         }}
         >Featured Food Truck</Text>
-
+  <View style={{alignItems: 'center'}}>{this.state.ranFood.biz_name.length > 0 ? <ProviderCard provider={this.state.ranFood}/> : <Text>Loading...</Text>}</View>
 <Text style={{
           textAlign: 'center',
           padding: 50,
@@ -57,7 +83,9 @@ class HomeScreen extends React.Component {
           fontWeight: 'bold'
         }}
         >Featured Bartender</Text>
-      </View>
+  <View style={{alignItems: 'center'}}>{this.state.ranBar.biz_name.length > 0 ? <ProviderCard provider={this.state.ranBar}/> : <Text>Loading...</Text>}</View>
+
+      </ScrollView>
     );
   }
 
@@ -67,7 +95,8 @@ class HomeScreen extends React.Component {
 const mapStateToProps = (state) => {
   return {
     first_name: state.auth.first_name,
-    id: state.auth.id
+    id: state.auth.id,
+    providers: state.provider.providers
   };
 };
 
@@ -106,5 +135,5 @@ const mapStateToProps = (state) => {
 //   </View>)}
 // }
 
-export default connect(mapStateToProps, { findUser })(HomeScreen);
+export default connect(mapStateToProps, { findUser, getProviders })(HomeScreen);
 // export default HomeScreen

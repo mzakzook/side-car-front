@@ -10,14 +10,14 @@ import { bizChanged, getMyProviders, getProviders } from '../actions/provider';
 import { PATH } from '../environment'
 
 
-class EditEvent extends React.Component {
+class AddEvent extends React.Component {
   // static navigationOptions = {
   //   title: 'SideCar',
   // };
 
   
   state = {
-    edate: this.props.navigation.state.params.edate,
+    edate: new Date(),
 
     title: '',
     description: ''
@@ -39,7 +39,7 @@ class EditEvent extends React.Component {
   edateChanged = (value) => {
     this.setState({
       edate: value
-    })
+    }, () => console.log(this.state.edate))
   }
 
 
@@ -57,21 +57,7 @@ class EditEvent extends React.Component {
 
  
 
-  deleteEvent = () => {
-    fetch(`http://${PATH}:3000/events/${this.props.navigation.state.params.id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Accepts: 'application/json'
-      }
-    })
-      .then(res => {
-        console.log("here is the res" + res)
-       
-        alert('Event Deleted')
-        this.props.navigation.navigate("ProviderShow")
-      })
-  }
+
 
   
 
@@ -88,16 +74,16 @@ class EditEvent extends React.Component {
     if (this.state.description.length > 0) {
       saveData["description"] = this.state.description
     }
-    if (new Date(this.props.navigation.state.params.edate) !== new Date(this.state.edate)) {
-      saveData["edate"] = new Date(this.state.edate)
-    }
-  
+    
+    
+    
     
 
     if (Object.entries(saveData).length !== 0 && saveData.constructor === Object) {
-      // saveData["edate"] = this.state.edate
-      fetch(`http://${PATH}:3000/events/${this.props.navigation.state.params.id}`, {
-        method: 'PATCH',
+      saveData["provider_id"] = this.props.id
+      saveData["edate"] = new Date(this.state.edate)
+      fetch(`http://${PATH}:3000/events`, {
+        method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
@@ -127,9 +113,9 @@ class EditEvent extends React.Component {
     return (
       <View style={styles.viewStyle}>
 
-        <Hoshi inputPadding={16} placeholder={this.props.navigation.state.params.title}
+        <Hoshi inputPadding={16} placeholder="Event Title"
           inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={e => this.titleChanged(e)} />
-        <Hoshi inputPadding={16} placeholder={this.props.navigation.state.params.description}
+        <Hoshi inputPadding={16} placeholder="Event Description"
           inputStyle={{ color: 'black' }} borderColor={"black"} onChangeText={e => this.descriptionChanged(e)} />
         {/* <DatePickerIOS
           date={new Date(this.state.edate)}
@@ -169,9 +155,7 @@ class EditEvent extends React.Component {
     );
   }
 
-
-
-
+ 
 }
 const mapStateToProps = (state) => {
   return {
@@ -212,5 +196,5 @@ const popAction = StackActions.pop({
 
 
 
-export default withNavigation(connect(mapStateToProps)(EditEvent));
+export default withNavigation(connect(mapStateToProps)(AddEvent));
 

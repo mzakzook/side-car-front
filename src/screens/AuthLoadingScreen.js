@@ -9,6 +9,7 @@ import {
 
 class AuthLoadingScreen extends React.Component {
   componentDidMount() {
+
     this._bootstrapAsync();
   }
 

@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, Button, Text, AsyncStorage, FlatList, ScrollView, Image } from 'react-native';
+import { View, Button, Text, AsyncStorage, FlatList, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation'
 import { connect }  from 'react-redux';
 import EventCard from './EventCard'
 import { PATH } from '../environment'
-
 
 
 
@@ -32,6 +31,11 @@ class ProviderShow extends React.Component {
        })
      })
     }
+
+  addEvent = () => {
+    console.log("It's a me")
+    this.props.navigation.navigate('AddEvent')
+  }
   
 
 
@@ -41,22 +45,25 @@ class ProviderShow extends React.Component {
     return (
       <View>
         {this.props.user_id === this.props.id ? <Text onPress={() => this.props.navigation.navigate('Discover')}>Back</Text> : <Text onPress={() => this.props.navigation.navigate('Discover')}>Back</Text>}
-        <Text>{this.props.biz_name}</Text>
+        
+        <Text style={{paddingVertical: 10, textAlign: 'center', fontSize: 30, fontWeight: 'bold'}}>{this.props.biz_name}</Text>
         <Image
               source={{ uri: (this.props.images.length > 0 ? `http://${PATH}:3000${this.props.images[0]}` : this.props.placeholder_image)}}
-              style={{ height: 300, width: 300, alignSelf: 'center' }}
+              style={{ height: 300, width: 375, alignSelf: 'center', borderRadius: 25 }}
             />
-        
-        <Text>{this.props.biz_phone}</Text>
-        {this.props.user_id === this.props.id ? <Button onPress={() => this.props.navigation.navigate("EditBiz")} title='Edit' /> : null }
-        <Text>Events</Text>
+        <Text style={{paddingVertical: 10, paddingHorizontal: 20, fontSize: 20, fontWeight: 'bold'}}>Contact Info</Text>
+        <Text style={{paddingHorizontal: 20, fontSize: 15}}>{this.props.biz_phone}</Text>
+        <Text style={{paddingHorizontal: 20, fontSize: 15}}>{this.props.website}</Text>
+        <Text style={{paddingHorizontal: 20, fontSize: 15}}>{this.props.yelp}</Text>
+        {this.props.user_id === this.props.id ? <Button  onPress={() => this.props.navigation.navigate("EditBiz")} title='Edit' /> : null }
+        <Text style={{paddingTop: 10, paddingBottom: 30, paddingHorizontal: 20, fontSize: 20, fontWeight: 'bold'}}>Events</Text>
         {this.state.events.length > 0 ? 
         <ScrollView>
         {this.state.events.map(event => {
           return <EventCard key={event.attributes.id} event={event.attributes} />
         })}
-         </ScrollView> : <Text>No Events Scheduled</Text>}
-      
+         </ScrollView> : <Text style={{paddingHorizontal: 20}}>No Events Scheduled</Text>}
+         {this.props.user_id === this.props.id ? <TouchableOpacity ><Button onPress={() => this.addEvent()} title="Add Event"/></TouchableOpacity> : null}
       </View>
     )
   }

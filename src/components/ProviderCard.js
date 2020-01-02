@@ -27,7 +27,7 @@ class ProviderCard extends React.Component {
     return (
       <View >
         <CardView
-          cardElevation={2}
+          cardElevation={10}
           cardMaxElevation={2}
           cornerRadius={5}
           style={styles.cardViewStyle}>

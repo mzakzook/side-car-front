@@ -27,7 +27,6 @@ class EventCard extends React.Component {
 
   render() {
 
-
     return (
       <View >
         <CardView
@@ -35,12 +34,19 @@ class EventCard extends React.Component {
           cardMaxElevation={2}
           cornerRadius={5}
           style={styles.cardViewStyle}>
-          <TouchableOpacity><Text style={styles.cardView_InsideText} >
+          <Text style={{paddingHorizontal: 20, fontSize: 18, color: '#000', textAlign: 'center', fontWeight: 'bold'}} >
             {this.props.event.title}
-            {/* hi {"\n"}
-              hello
-               */}
-          </Text></TouchableOpacity>
+            
+         </Text>
+         <Text style={styles.cardView_InsideText} >
+            
+            {this.props.event.description}
+            
+          </Text>
+        <Text style={styles.cardView_InsideText} >
+            
+            {new Date(this.props.event.edate).toLocaleDateString()}
+         </Text>
 
           {/* <TouchableHighlight onPress={() => this.handlePress(this.props.provider)}><Image
 
@@ -77,16 +83,15 @@ const styles = {
   cardViewStyle: {
 
     
-    height: 150
+    height: 110
 
   },
 
   cardView_InsideText: {
-
-    fontSize: 20,
+    paddingHorizontal: 20,
+    fontSize: 15,
     color: '#000',
-    textAlign: 'center',
-    marginTop: 50
+    textAlign: 'center'
 
   }
 
